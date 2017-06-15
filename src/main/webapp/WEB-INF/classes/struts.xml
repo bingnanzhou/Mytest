@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    
+    <package name="home" namespace="/" extends="struts-default">
+    	<default-action-ref name="checkLoginStatus" />
+
+    	<action name="checkLoginStatus" class="com.ibm.bingnan.sso.authentication.SSOAction" method="checkLoginStatus">
+        	<result name="success">/index.jsp</result>
+            <result name="login">/index.jsp</result>
+    	</action>
+	</package>
+    
+    <package name="login" namespace="/sso" extends="struts-default">
+        <action name="login" class="com.ibm.bingnan.sso.authentication.SSOAction" method="login">
+            <result name="success" type="redirect">${gotoURL}</result>
+            <result name="login">/loginRetry.jsp</result>
+        </action>
+        <action name="logout" class="com.ibm.bingnan.sso.authentication.SSOAction" method="logout">
+            <result name="login" type="redirect">/</result>
+        </action>
+    </package>
+    
+    <package name="demo1" namespace="/demo1" extends="struts-default">
+        <action name="main" class="com.ibm.bingnan.sso.demo1app.Demo1" method="main">
+            <result name="success">/demo1.jsp</result>
+            <result name="login">/login.jsp</result>
+        </action>
+    </package>
+    
+    <package name="demo2" namespace="/demo2" extends="struts-default">
+        <action name="main" class="com.ibm.bingnan.sso.demo2app.Demo2" method="main">
+            <result name="success">/demo2.jsp</result>
+            <result name="login">/login.jsp</result>
+        </action>
+    </package>
+
+</struts> 
